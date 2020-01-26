@@ -1,0 +1,34 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "customer support system",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "reactjs",
+    "ticketing",
+    "support"
+  ],
+  "author": "akintola olalekan",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.7",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
+    "mysql2": "^2.1.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "sequelize": "^5.21.3",
+    "validator": "^12.2.0"
+  }
+}
