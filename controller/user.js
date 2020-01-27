@@ -98,6 +98,24 @@ exports.allUsers = async (req, res) => {
     }
 }
 
+//@route  Get api/user/me/:id
+//@desc Get user profile route
+//@access Private
+exports.me = async (req, res) => {
+    if(!req.params.id && req.params.id === ''){
+        return res.status(403).json({status: false, message: "User id not passed"});
+    }
+    try {
+        const profile = await User.findOne({ where: { id: req.params.id } });
+        if(profile){
+            return res.json({ status: true, profile });
+        }
+        res.status(404).json({status: false, message: "User profile not found"})
+    } catch (error) {
+        return res.status(403).json({status: false, message: "An error occured while trying to run a query", error});
+    }
+}
+
 //@route  Get api/user/deleted
 //@desc Get deleted users route
 //@access Private
@@ -114,7 +132,6 @@ exports.deletedUsers = async (req, res) => {
 //@desc  Delete user route
 //@access Private
 exports.deleteUser = async (req, res) => {
-    console.log(req.params.id)
     try {
         //Check if logged user is an admin
         if (!req.body.role && req.body.role !== 'admin'){
@@ -122,7 +139,7 @@ exports.deleteUser = async (req, res) => {
         }
 
         //Update user isDelete column to 1
-        const user = await User.update({ isDelete: 0 },{ where: { id: req.params.id } });
+        const user = await User.update({ isDelete: 1 },{ where: { id: req.params.id } });
             return res.json({status: true, message: "User Successfully deleted!", user})
             
     } catch (error) {

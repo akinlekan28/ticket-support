@@ -5,6 +5,7 @@ const {
   register,
   login,
   allUsers,
+  me,
   deletedUsers,
   deleteUser
 } = require("../controller/user");
@@ -17,6 +18,8 @@ router.post("/register", register);
 router.post("/login", login);
 //get all active users
 router.get('/', protect, allUsers)
+//get user profile route
+router.get('/me/:id', protect, me)
 //get all deleted users
 router.get("/deleted", protect, deletedUsers);
 //delete user
