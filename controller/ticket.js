@@ -12,8 +12,18 @@ exports.addTicket = async (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
+
   try {
-        const ticket = await Ticket.create(req.body);
+        const tempTag = Math.random().toString(8).substring(2, 6)+Math.random().toString(36).substring(2, 4)
+        const tag = "Tick-" + tempTag;
+        const ticketDetails = {
+          title: req.body.title,
+          description: req.body.description,
+          userId: req.body.userId,
+          tag
+        };
+
+        const ticket = await Ticket.create(ticketDetails);
         return res.status(201).json({status: true, message: "Ticket successfully added!", ticket})
   } catch (error) {
       return res.status(403).json({status: false, message: "An error occured while trying to run a query",error});
@@ -91,3 +101,20 @@ exports.closeTicket = async (req, res) => {
     return res.status(403).json({status: false, message: "An error occured while trying to run a query", error});
   }
 };
+
+// @desc      View support ticket by tag
+// @route     Get /api/v1/ticket/tag/:id
+// @access    Private
+exports.getTicketByTag = async (req, res) => {
+  try {
+    const ticket = await Ticket.findOne({ where: { tag: req.params.id } });
+    if(ticket){
+        return res.json({ status: true, ticket });
+    } else {
+        return res.status(404).json({status: false, message: `Ticket with tag ${req.params.id} not found`})
+    }
+    
+  } catch (error) {
+    return res.status(403).json({status: false, message: "An error occured while trying to run a query", error});
+  }
+}
