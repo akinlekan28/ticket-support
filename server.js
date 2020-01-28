@@ -9,6 +9,7 @@ const morgan = require("morgan");
 //import route files
 const user = require("./routes/user");
 const ticket = require("./routes/ticket");
+const comment = require("./routes/comment");
 
 const app = express();
 
@@ -36,6 +37,7 @@ const models = require("./models");
 // Mount routers
 app.use("/api/v1/user", user);
 app.use("/api/v1/ticket", ticket);
+app.use("/api/v1/comment", comment);
 
 //express port
 const PORT = process.env.PORT || 5000;

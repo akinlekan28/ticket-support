@@ -8,7 +8,8 @@ const {
   getClosedTickets,
   getUserTickets,
   closeTicket,
-  getTicketByTag
+  getTicketByTag,
+  getTicketReport
 } = require("../controller/ticket");
 
 const router = express.Router();
@@ -31,5 +32,8 @@ router.get("/user/:id", protect, getUserTickets);
 
 //get ticket by tag
 router.get("/tag/:id", protect, getTicketByTag);
+
+//get ticket report
+router.get("/report", protect, getTicketReport);
 
 module.exports = router;

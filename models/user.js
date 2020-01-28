@@ -33,7 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     User.hasMany(models.Ticket, {
       foreignKey: "userId",
-      as: "tickets"
+      as: "tickets",
+      onDelete: 'CASCADE'
     });
   };
   return User;

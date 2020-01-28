@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Comments', {
+    return queryInterface.createTable("Comments", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,11 +10,10 @@ module.exports = {
       },
       ticketId: {
         type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
         references: {
-          model: 'Ticket',
-          key: 'id',
-          as: 'ticketId'
+          model: "Ticket",
+          key: "id",
+          as: "ticketId"
         }
       },
       createdAt: {
@@ -28,6 +27,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Comments');
+    return queryInterface.dropTable("Comments");
   }
 };

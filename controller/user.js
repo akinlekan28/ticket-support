@@ -34,13 +34,13 @@ exports.register = async (req, res) => {
                 })
                 .then(registeredUser => res.status(201).json({status: true, message: "User successfully created", registeredUser}))
                 .catch(err => {
-                    return res.status(403).json({status: false, message: "An error occured while trying to run a query", err});
+                    return res.status(400).json({status: false, message: "An error occured while trying to run a query", err});
                 })
             })
         })
 
     } catch (error) {
-        res.status(403).json({status: false, message: "An error occured while trying to run a query", error})
+        res.status(400).json({status: false, message: "An error occured while trying to run a query", error})
     }  
 }
 
@@ -82,7 +82,7 @@ exports.login = async (req, res) => {
         })
 
     } catch (error) {
-        res.status(403).json({status: false,message: "An error occured while trying to run a query",error});
+        return res.status(400).json({status: false,message: "An error occured while trying to run a query",error});
     }
 }
 
@@ -90,11 +90,16 @@ exports.login = async (req, res) => {
 //@desc Get active users route
 //@access Private
 exports.allUsers = async (req, res) => {
+    console.log("hello");
     try {
         const users = await User.findAll({where: {isDelete: 0}});
-        return res.json({count: users.length, users})
+        if(users){
+            return res.json({ count: users.length, users });
+        } else {
+            return res.status(404).json({status: false, message: "No user was found"});
+        }
     } catch (error) {
-        return res.status(403).json({status: false, message: "An error occured while trying to run a query", error});
+        return res.status(400).json({status: false, message: "An error occured while trying to run a query", error});
     }
 }
 
@@ -103,7 +108,7 @@ exports.allUsers = async (req, res) => {
 //@access Private
 exports.me = async (req, res) => {
     if(!req.params.id && req.params.id === ''){
-        return res.status(403).json({status: false, message: "User id not passed"});
+        return res.status(400).json({status: false, message: "User id not passed"});
     }
     try {
         const profile = await User.findOne({ where: { id: req.params.id } });
@@ -112,7 +117,7 @@ exports.me = async (req, res) => {
         }
         res.status(404).json({status: false, message: "User profile not found"})
     } catch (error) {
-        return res.status(403).json({status: false, message: "An error occured while trying to run a query", error});
+        return res.status(400).json({status: false, message: "An error occured while trying to run a query", error});
     }
 }
 
@@ -124,7 +129,7 @@ exports.deletedUsers = async (req, res) => {
         const users = await User.findAll({where: {isDelete: 1}});
         return res.json({count: users.length, users})
     } catch (error) {
-        return res.status(403).json({status: false, message: "An error occured while trying to run a query", error});
+        return res.status(400).json({status: false, message: "An error occured while trying to run a query", error});
     }
 }
 
@@ -143,6 +148,6 @@ exports.deleteUser = async (req, res) => {
             return res.json({status: true, message: "User Successfully deleted!", user})
             
     } catch (error) {
-        return res.status(403).json({status: false, message: "An error occured while trying to run a query", error});
+        return res.status(400).json({status: false, message: "An error occured while trying to run a query", error});
     }
 }
