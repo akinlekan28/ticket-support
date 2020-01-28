@@ -43,9 +43,11 @@ app.use("/api/v1/comment", comment);
 const PORT = process.env.PORT || 5000;
 
 //Initialize express app to listen at port
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   models.sequelize
     .sync()
     .then(res => console.log("Database connection successful!!!"))
     .catch(err => console.log(err));
 });
+
+module.exports = app;

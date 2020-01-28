@@ -4,7 +4,7 @@
   "description": "customer support system",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "dev": "nodemon server.js"
   },
   "keywords": [
@@ -31,5 +31,10 @@
     "pdfmake": "^0.1.63",
     "sequelize": "^5.21.3",
     "validator": "^12.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^7.0.1"
   }
 }

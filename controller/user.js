@@ -90,7 +90,6 @@ exports.login = async (req, res) => {
 //@desc Get active users route
 //@access Private
 exports.allUsers = async (req, res) => {
-    console.log("hello");
     try {
         const users = await User.findAll({where: {isDelete: 0}});
         if(users){
