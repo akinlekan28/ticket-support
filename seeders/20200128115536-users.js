@@ -52,6 +52,15 @@ module.exports = {
           "$2b$10$/gIZ2TMykFwzS9ePKAWw4OYMyNhVabVq9.N1IZhlm.Ahv2JpX1CWG",
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        name: "Edward Snowden",
+        role: "user",
+        email: "Snowden@gmail.com",
+        password:
+          "$2b$10$/gIZ2TMykFwzS9ePKAWw4OYMyNhVabVq9.N1IZhlm.Ahv2JpX1CWG",
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ]);
   },

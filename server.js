@@ -39,6 +39,11 @@ app.use("/api/v1/user", user);
 app.use("/api/v1/ticket", ticket);
 app.use("/api/v1/comment", comment);
 
+//Root url
+app.get("/", function(req, res) {
+  res.status(200).json({message:"Hello World"});
+});
+
 //express port
 const PORT = process.env.PORT || 5000;
 
