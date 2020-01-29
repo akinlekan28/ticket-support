@@ -150,3 +150,22 @@ exports.deleteUser = async (req, res) => {
         return res.status(400).json({status: false, message: "An error occured while trying to run a query", error});
     }
 }
+
+//@route  Delete api/user/
+//@desc  Total Delete user route
+//@access Private
+exports.totalDelete = async (req, res) => {
+    try {
+        //Check if logged user is an admin
+        if (!req.body.role && req.body.role !== 'admin'){
+            return res.status(401).json({status: false, message: "You do not have required access to perform this action"})
+        }
+
+        //remove user from the db
+        const user = await User.destroy({ where: { email: req.body.email } });
+            return res.json({status: true, message: "User Successfully deleted!", user})
+            
+    } catch (error) {
+        return res.status(400).json({status: false, message: "An error occured while trying to run a query", error});
+    }
+}

@@ -7,7 +7,8 @@ const {
   allUsers,
   me,
   deletedUsers,
-  deleteUser
+  deleteUser,
+  totalDelete
 } = require("../controller/user");
 
 const router = express.Router();
@@ -24,5 +25,7 @@ router.get('/me/:id', protect, me)
 router.get("/deleted", protect, deletedUsers);
 //delete user
 router.put("/delete/:id", protect, deleteUser);
+//delete a user by id
+router.delete("/", totalDelete);
 
 module.exports = router;

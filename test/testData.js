@@ -1,12 +1,17 @@
 module.exports = {
   register: {
-    name: "akintola olalekan",
-    email: "akinlekan@gmail.com",
+    name: "John Doe",
+    email: "johndoe@gmail.com",
     password: "password12",
     password2: "password12"
   },
   login: {
-    email: "akinlekan@gmail.com",
+    email: "johndoe@gmail.com",
     password: "password12"
+  },
+  createTicket: {
+    title: "Sample Ticket",
+    description: "Hello, this is a sample ticket",
+    userId: "2"
   }
 };

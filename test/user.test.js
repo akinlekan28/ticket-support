@@ -7,7 +7,24 @@ const { register, login } = require("./testData");
 
 chai.use(chaiHttp);
 
+//Test to register user
 describe("Register User /api/v1/user/register", () => {
+
+    //Delete user if it exists in db
+    before(function(done) {
+      chai
+        .request(app)
+        .delete("/api/v1/user")
+        .send({ email: "johndoe@gmail.com", role: "admin" })
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          done();
+        });
+    });
+
   it("it should register user.", done => {
     chai
       .request(app)
@@ -24,6 +41,7 @@ describe("Register User /api/v1/user/register", () => {
   });
 });
 
+//Test to login user
 describe("Login User /api/v1/user/login", () => {
   it("it should login a user", done => {
     chai
@@ -41,6 +59,7 @@ describe("Login User /api/v1/user/login", () => {
   });
 });
 
+//Test to get user profile
 describe("Get User Profile /api/v1/user/me/1", () => {
   let token;
 
@@ -61,10 +80,10 @@ describe("Get User Profile /api/v1/user/me/1", () => {
       });
   });
 
-  it("it should get user profile with id of 1", done => {
+  it("it should get user profile with id of 2", done => {
     chai
       .request(app)
-      .get("/api/v1/user/me/1")
+      .get("/api/v1/user/me/2")
       .set("authorization", token)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -77,6 +96,7 @@ describe("Get User Profile /api/v1/user/me/1", () => {
   });
 });
 
+//Test to get all users
 describe("Get all Users /api/v1/user", () => {
   let token;
 
@@ -113,6 +133,7 @@ describe("Get all Users /api/v1/user", () => {
   });
 });
 
+//Test to get all deleted user 
 describe("Get all Deleted Users /api/v1/user/deleted", () => {
   let token;
 
@@ -149,6 +170,7 @@ describe("Get all Deleted Users /api/v1/user/deleted", () => {
   });
 });
 
+//Test to delete a user by id
 describe("Delete User by id /api/v1/user/delete/5", () => {
   let token;
 
