@@ -13,5 +13,9 @@ module.exports = {
     title: "Sample Ticket",
     description: "Hello, this is a sample ticket",
     userId: "2"
+  },
+  createComment: {
+    commentText: "This is a test suite comment",
+    ticketId: "3"
   }
 };
