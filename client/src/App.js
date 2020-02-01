@@ -12,6 +12,7 @@ import Login from "./components/auth/Login";
 import PrivateRoute from './components/common/PrivateRoute';
 
 import Dashboard from './components/dashboard/Dashboard';
+import CreateTicket from "./components/Tickets/CreateTicket";
 
 
 //check for token
@@ -45,6 +46,9 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/ticket/create" component={CreateTicket} />
             </Switch>
           </div>
         </Router>

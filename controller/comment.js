@@ -48,7 +48,7 @@ exports.addComment = async (req, res) => {
 exports.getComments = async (req, res) => {
     try {
         const comments = await Comment.findAll();
-        return res.json({status: true, count: comments.length, comments})
+        return res.json(comments)
     } catch (error) {
         return res.status(400).json({status: false, message: "An error occured while trying to run a query",error});
     }

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TextFieldGroup from "../common/TextFieldGroup";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { registerUser } from "../../actions/authActions";
 import { SpinnerBtn, SolidBtn } from "../common/Button";
 import { Link } from "react-router-dom";

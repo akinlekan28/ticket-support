@@ -8,7 +8,7 @@ export default function Sidebar() {
   return (
     <div>
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
-        <ul className="nav" style={{marginTop: '-20px'}}>
+        <ul className="nav" style={{ marginTop: "-20px" }}>
           <li className="nav-item mt-5">
             <div className="sidebar-menu-title">
               <img src={home} alt="" className="sidebar-icon-title" />{" "}
@@ -16,14 +16,7 @@ export default function Sidebar() {
             </div>
             <ul className="nav submenu-wrapper">
               <li className="nav-item">
-                <Link
-                  to="/dashboard"
-                  className="nav-link"
-                  data-toggle="collapse"
-                  href="#ui-basic"
-                  aria-expanded="false"
-                  aria-controls="ui-basic"
-                >
+                <Link to="/dashboard" className="nav-link">
                   <span className="menu-title">Home</span>
                 </Link>
               </li>
@@ -37,9 +30,9 @@ export default function Sidebar() {
             </div>
             <ul className="nav submenu-wrapper">
               <li className="nav-item">
-                <a className="nav-link" href="../apps/calendar.html">
+                <Link className="nav-link" to="/users">
                   <span className="menu-title">All Users</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="../apps/email.html">
@@ -55,6 +48,11 @@ export default function Sidebar() {
               <span> Tickets</span>
             </div>
             <ul className="nav submenu-wrapper">
+              <li className="nav-item">
+                <Link to="/ticket/create">
+                  <span className="menu-title nav-link">Create Ticket</span>
+                </Link>
+              </li>
               <li className="nav-item">
                 <span className="menu-title nav-link">All Tickets</span>
               </li>

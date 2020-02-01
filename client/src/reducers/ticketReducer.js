@@ -10,7 +10,8 @@ const initialState = {
   ticket: {},
   tickets: [],
   comments: [],
-  loading: false
+  loading: false,
+  test: []
 };
 
 export default function(state = initialState, action) {
@@ -33,7 +34,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         ticket: action.payload,
-        tickets: [action.payload.ticket, ...state.tickets]
+        tickets: [action.payload, ...state.tickets],
       };
 
     case SET_LOADING:

@@ -44,9 +44,9 @@ export const getComments = () => async dispatch => {
 export const addTicket = ticketData => async dispatch => {
   try {
     const ticket = await axios.post("/api/v1/ticket", ticketData);
-    dispatch({
+    return dispatch({
       type: ADD_TICKET,
-      payload: ticket.data
+      payload: ticket.data.ticket
     });
   } catch (error) {
     dispatch({

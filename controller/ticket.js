@@ -39,7 +39,7 @@ exports.addTicket = async (req, res) => {
 exports.getTickets = async (req, res) => {
   try {
         const tickets = await Ticket.findAll();
-        return res.json({status: true, count: tickets.length, tickets})
+        return res.json(tickets)
   } catch (error) {
       return res.status(400).json({status: false, message: "An error occured while trying to run a query",error});
   }

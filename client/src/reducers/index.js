@@ -6,5 +6,5 @@ import ticketReducer from "./ticketReducer";
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
-  ticket: ticketReducer
+  tickets: ticketReducer
 });
