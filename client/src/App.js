@@ -16,6 +16,7 @@ import CreateTicket from "./components/Tickets/CreateTicket";
 import AllTickets from "./components/Tickets/AllTickets";
 import ActiveTickets from "./components/Tickets/ActiveTickets";
 import ClosedTickets from "./components/Tickets/ClosedTickets";
+import SearchTicket from "./components/Tickets/SearchTicket";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -58,15 +59,26 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/ticket/all" component={AllTickets} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/ticket/closed"
+                component={ClosedTickets}
+              />
+            </Switch>
+            <Switch>
               <PrivateRoute
                 exact
                 path="/ticket/active"
                 component={ActiveTickets}
               />
+            </Switch>
+            <Switch>
               <PrivateRoute
                 exact
-                path="/ticket/closed"
-                component={ClosedTickets}
+                path="/ticket/search"
+                component={SearchTicket}
               />
             </Switch>
           </div>

@@ -10,3 +10,4 @@ export const GET_ALL_TICKETS = "GET_ALL_TICKETS";
 export const GET_COMMENTS = "GET_COMMENTS";
 export const ADD_TICKET = "ADD_TICKET";
 export const CLOSE_TICKET = "CLOSE_TICKET";
+export const GET_TICKET = "GET_TICKET";

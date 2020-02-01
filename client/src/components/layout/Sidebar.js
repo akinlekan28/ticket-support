@@ -69,7 +69,9 @@ export default function Sidebar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <span className="menu-title nav-link">Search Ticket</span>
+                <Link to="/ticket/search">
+                  <span className="menu-title nav-link">Search Ticket</span>
+                </Link>
               </li>
             </ul>
           </li>

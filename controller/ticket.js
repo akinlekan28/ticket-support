@@ -111,7 +111,7 @@ exports.getTicketByTag = async (req, res) => {
   try {
     const ticket = await Ticket.findOne({ where: { tag: req.params.id } });
     if(ticket){
-        return res.json({ status: true, ticket });
+        return res.json(ticket);
     } else {
         return res.status(404).json({status: false, message: `Ticket with tag ${req.params.id} not found`})
     }
