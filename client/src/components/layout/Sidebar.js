@@ -59,10 +59,14 @@ export default function Sidebar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <span className="menu-title nav-link">Active Tickets</span>
+                <Link to="/ticket/active">
+                  <span className="menu-title nav-link">Active Tickets</span>
+                </Link>
               </li>
               <li className="nav-item">
-                <span className="menu-title nav-link">Closed Tickets</span>
+                <Link to="/ticket/closed">
+                  <span className="menu-title nav-link">Closed Tickets</span>
+                </Link>
               </li>
               <li className="nav-item">
                 <span className="menu-title nav-link">Search Ticket</span>

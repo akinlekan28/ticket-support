@@ -35,7 +35,7 @@ class TicketTable extends Component {
   }
 
   render() {
-    const { tickets, role } = this.props;
+    const { tickets, role, tableTitle } = this.props;
     const { currentPage, recordPerPage } = this.state;
     const indexOfLastRecord = currentPage * recordPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordPerPage;
@@ -45,7 +45,7 @@ class TicketTable extends Component {
       <div className="col-lg-12 grid-margin stretch-card">
         <div className="card">
           <div className="card-body">
-            <h4 className="card-title">All Ticket</h4>
+            <h4 className="card-title">All {tableTitle} Ticket</h4>
             <div className="table-responsive">
               <table className="table table-striped">
                 <thead>

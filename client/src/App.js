@@ -14,6 +14,8 @@ import PrivateRoute from "./components/common/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateTicket from "./components/Tickets/CreateTicket";
 import AllTickets from "./components/Tickets/AllTickets";
+import ActiveTickets from "./components/Tickets/ActiveTickets";
+import ClosedTickets from "./components/Tickets/ClosedTickets";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -56,6 +58,16 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/ticket/all" component={AllTickets} />
+              <PrivateRoute
+                exact
+                path="/ticket/active"
+                component={ActiveTickets}
+              />
+              <PrivateRoute
+                exact
+                path="/ticket/closed"
+                component={ClosedTickets}
+              />
             </Switch>
           </div>
         </Router>
