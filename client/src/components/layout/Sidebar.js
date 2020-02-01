@@ -54,7 +54,9 @@ export default function Sidebar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <span className="menu-title nav-link">All Tickets</span>
+                <Link to="/ticket/all">
+                  <span className="menu-title nav-link">All Tickets</span>
+                </Link>
               </li>
               <li className="nav-item">
                 <span className="menu-title nav-link">Active Tickets</span>

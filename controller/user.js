@@ -91,9 +91,9 @@ exports.login = async (req, res) => {
 //@access Private
 exports.allUsers = async (req, res) => {
     try {
-        const users = await User.findAll({where: {isDelete: 0}});
+        const users = await User.findAll();
         if(users){
-            return res.json({ count: users.length, users });
+            return res.json(users);
         } else {
             return res.status(404).json({status: false, message: "No user was found"});
         }

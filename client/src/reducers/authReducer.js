@@ -2,14 +2,16 @@ import {
   SET_CURRENT_USER,
   GET_SUCCESS,
   SET_LOADING,
-  REMOVE_LOADING
+  REMOVE_LOADING,
+  GET_USERS
 } from "../actions/types";
-import isEmpty from '../utils/is-empty';
+import isEmpty from "../utils/is-empty";
 
 const initialState = {
   isAuthenticated: false,
   loading: false,
-  user: {}
+  user: {},
+  users: []
 };
 
 export default function(state = initialState, action) {
@@ -19,6 +21,12 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload
+      };
+
+    case GET_USERS:
+      return {
+        ...state,
+        users: action.payload
       };
 
     case GET_SUCCESS:

@@ -3,7 +3,8 @@ import {
   GET_ERRORS,
   CLEAR_ERRORS,
   GET_SUCCESS,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  GET_USERS
 } from "./types";
 import jwt_decode from "jwt-decode";
 import setAuthToken from '../utils/setAuthToken';
@@ -67,6 +68,22 @@ export const loginUser = userData => dispatch => {
       })
     );
 };
+
+//get users
+export const getUsers = () => async dispatch => {
+    try {
+      const users = await axios.get("/api/v1/user");
+      dispatch({
+        type: GET_USERS,
+        payload: users.data
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data
+      });
+    }
+}
 
 //set logged in user
 export const setCurrentUser = decoded => {

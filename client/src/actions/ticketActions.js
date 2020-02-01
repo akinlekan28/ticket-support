@@ -5,7 +5,8 @@ import {
   CLEAR_ERRORS,
   SET_LOADING,
   GET_COMMENTS,
-  ADD_TICKET
+  ADD_TICKET,
+  CLOSE_TICKET
 } from "./types";
 
 //Get all user tickets
@@ -60,6 +61,28 @@ export const addTicket = ticketData => async dispatch => {
     });
   }
 };
+
+//Close a ticket
+export const closeTicket = ticketData => async dispatch => {
+  try {
+    const closeTicket = await axios.put("/api/v1/ticket", ticketData);
+    dispatch(getTickets());
+    return dispatch({
+      type: CLOSE_TICKET,
+      payload: closeTicket.data
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+    dispatch(() => {
+      setTimeout(function() {
+        dispatch(clearErrors());
+      }, 5000);
+    });
+  }
+}
 
 //Set loading state
 export const setLoading = () => {

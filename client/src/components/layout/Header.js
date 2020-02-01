@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import menu from "./icons/menu.svg";
 import profile from "./icons/profile.png";
-import { Link } from "react-router-dom";
 
 class Header extends Component {
   onHandleClick(e) {
@@ -31,14 +30,13 @@ class Header extends Component {
           <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
             <ul className="navbar-nav navbar-nav-right">
               <li className="nav-item nav-profile dropdown">
-                <Link
-                  to="javascript:"
+                <span
                   className="nav-link dropdown-toggle"
                   data-toggle="dropdown"
                   id="profileDropdown-navbar"
                 >
                   <img src={profile} alt="profile" />
-                </Link>
+                </span>
                 <div
                   className="dropdown-menu dropdown-menu-right navbar-dropdown flat-dropdown"
                   aria-labelledby="profileDropdown-navbar"
@@ -61,17 +59,14 @@ class Header extends Component {
                   <div className="profile-dropdown-body">
                     <ul className="list-profile-items">
                       <li className="profile-item">
-                        <Link
-                          to="javascript:"
-                          className="profile-dropdown-link"
-                        >
+                        <span className="profile-dropdown-link">
                           <div className="d-flex align-items-center">
                             <i className="mdi mdi-power text-dark"></i>
                             <div onClick={this.onHandleClick.bind(this)}>
                               <h5 className="item-title mt-0">Logout</h5>
                             </div>
                           </div>
-                        </Link>
+                        </span>
                       </li>
                     </ul>
                   </div>

@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
-import {setCurrentUser, logoutUser} from './actions/authActions';
+import { setCurrentUser, logoutUser } from "./actions/authActions";
 import jwt_decode from "jwt-decode";
-import setAuthToken from './utils/setAuthToken';
+import setAuthToken from "./utils/setAuthToken";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
-import PrivateRoute from './components/common/PrivateRoute';
+import PrivateRoute from "./components/common/PrivateRoute";
 
-import Dashboard from './components/dashboard/Dashboard';
+import Dashboard from "./components/dashboard/Dashboard";
 import CreateTicket from "./components/Tickets/CreateTicket";
-
+import AllTickets from "./components/Tickets/AllTickets";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -36,7 +36,7 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
-  render(){
+  render() {
     return (
       <Provider store={store}>
         <Router>
@@ -48,7 +48,14 @@ class App extends Component {
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
             <Switch>
-              <PrivateRoute exact path="/ticket/create" component={CreateTicket} />
+              <PrivateRoute
+                exact
+                path="/ticket/create"
+                component={CreateTicket}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/ticket/all" component={AllTickets} />
             </Switch>
           </div>
         </Router>

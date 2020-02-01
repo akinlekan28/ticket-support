@@ -3,7 +3,8 @@ import {
   SET_LOADING,
   REMOVE_LOADING,
   GET_COMMENTS,
-  ADD_TICKET
+  ADD_TICKET,
+  CLOSE_TICKET
 } from "../actions/types";
 
 const initialState = {
@@ -34,7 +35,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         ticket: action.payload,
-        tickets: [action.payload, ...state.tickets],
+        tickets: [action.payload, ...state.tickets]
+      };
+
+    case CLOSE_TICKET:
+      return {
+        ...state,
+        ticket: action.payload
       };
 
     case SET_LOADING:
