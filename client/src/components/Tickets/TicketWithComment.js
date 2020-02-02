@@ -2,23 +2,27 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TextFieldGroup from "../common/TextFieldGroup";
 import { SolidBtn, SpinnerBtn } from "../common/Button";
-import { getTicketByTag } from "../../actions/ticketActions";
+import { getTicketWithComment, addComment } from "../../actions/ticketActions";
 import Header from "../layout/Header";
 import Sidebar from "../layout/Sidebar";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
-class SearchTicket extends Component {
+class TicketWithComment extends Component {
   constructor() {
     super();
 
     this.state = {
-      tag: "",
+      commentText: "",
       errors: {},
       loading: false
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getTicketWithComment(this.props.match.params.id);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -35,21 +39,32 @@ class SearchTicket extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    this.setState({ loading: true });
-    this.props.getTicketByTag(this.state.tag);
-    this.setState({ loading: false });
+    let commentData = {
+      commentText: this.state.commentText,
+      ticketId: this.props.match.params.id
+    };
+
+    this.props
+      .addComment(commentData)
+      .then(res => {
+          if(res && res.payload.status === true){
+              toast.success("Comment successfully added")
+          }
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
     const { errors, loading } = this.state;
     let ticketContainer;
+    let commentContainer;
 
-    if (Object.keys(this.props.tickets.ticket).length > 0) {
-      const { ticket } = this.props.tickets;
+    if (Object.keys(this.props.tickets.ticketWithComments).length > 0) {
+      const { ticketWithComments: { ticket } } = this.props.tickets;
 
       ticketContainer = (
         <React.Fragment>
-          <div className="row card mt-5">
+          <div className="row card mt-1 mb-3">
             <div className="col-md-12 card-body">
               <h3 className="text-center">{ticket.tag}</h3>
               <div className="mt-5 ticket-container">
@@ -71,19 +86,33 @@ class SearchTicket extends Component {
                   <strong>Date Added:</strong>{" "}
                   {new Date(ticket.createdAt).toISOString().slice(0, 10)}
                 </p>
-                <p className="text-center">
-                  <Link to={`/ticket/view/${ticket.id}`}>
-                    <span className="badge badge-secondary">
-                      <i className="fa fa-eye"></i>
-                    </span>
-                  </Link>
-                </p>
               </div>
             </div>
           </div>
         </React.Fragment>
       );
+
+      commentContainer =
+        Object.keys(ticket.comments).length > 0 ? (
+          <div className="row card card-body mt-3">
+            <h4 className="text-center">Comments</h4>
+            {ticket.comments.map(comment => (
+              <div key={comment.id} className="mb-3">
+                <p>
+                  <strong>Comment: </strong>
+                  {comment.commentText}
+                </p>
+                <p>
+                  <strong>Date Added: </strong>
+                  {new Date(comment.createdAt).toISOString().slice(0, 10)}
+                </p>
+                <hr />
+              </div>
+            ))}
+          </div>
+        ) : null;
     }
+
     return (
       <div className="container-scroller">
         <Header />
@@ -91,13 +120,15 @@ class SearchTicket extends Component {
           <Sidebar />
           <div className="main-panel">
             <div className="content-wrapper">
+              {ticketContainer}
               <div className="row card">
-                <div className="col-md-7 card-body mx-auto">
+                <div className="col-md-5 card-body mx-auto">
                   <form onSubmit={this.onSubmit}>
                     <TextFieldGroup
-                      name="tag"
-                      label="Tag"
-                      value={this.state.tag}
+                      name="commentText"
+                      label="Comment"
+                      value={this.state.commentText}
+                      placeholder="Enter Comment"
                       onChange={this.onChange}
                       error={errors.message}
                     />
@@ -105,7 +136,7 @@ class SearchTicket extends Component {
                   </form>
                 </div>
               </div>
-              {ticketContainer}
+              {commentContainer}
             </div>
           </div>
         </div>
@@ -119,4 +150,6 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { getTicketByTag })(SearchTicket);
+export default connect(mapStateToProps, { getTicketWithComment, addComment })(
+  TicketWithComment
+);

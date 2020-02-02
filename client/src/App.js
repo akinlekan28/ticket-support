@@ -20,6 +20,7 @@ import SearchTicket from "./components/Tickets/SearchTicket";
 import AllUsers from "./components/Users/AllUsers";
 import DeletedUsers from "./components/Users/DeletedUsers";
 import Profile from "./components/Users/Profile";
+import TicketWithComment from "./components/Tickets/TicketWithComment";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -76,6 +77,9 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/user/view/:id" component={Profile} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/ticket/view/:id" component={TicketWithComment} />
             </Switch>
           </div>
         </Router>

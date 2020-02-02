@@ -75,9 +75,7 @@ describe("Get all tickets /api/v1/ticket", () => {
       .set("authorization", token)
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body.status).to.equals(true);
-        expect(res.body).to.have.property("tickets");
-        expect(res.body.tickets).to.be.a("array");
+        expect(res.body).to.be.an("array");
       });
 
     done();
@@ -112,9 +110,7 @@ describe("Get all active tickets /api/v1/ticket/active", () => {
       .set("authorization", token)
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body.status).to.equals(true);
-        expect(res.body).to.have.property("tickets");
-        expect(res.body.tickets).to.be.a("array");
+        expect(res.body).to.be.an("array");
       });
 
     done();
@@ -223,13 +219,11 @@ describe("Get a ticket by tag /api/v1/ticket/tag/Tick-HFIFN", () => {
       .set("authorization", token)
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body.status).to.equals(true);
-        expect(res.body).to.have.property("ticket");
-        expect(res.body.ticket).to.be.a("object");
-        expect(res.body.ticket).to.have.property("title");
-        expect(res.body.ticket).to.have.property("description");
-        expect(res.body.ticket).to.have.property("tag");
-        expect(res.body.ticket).to.have.property("userId");
+        expect(res.body).to.be.a("object");
+        expect(res.body).to.have.property("title");
+        expect(res.body).to.have.property("description");
+        expect(res.body).to.have.property("tag");
+        expect(res.body).to.have.property("userId");
       });
 
     done();

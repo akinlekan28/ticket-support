@@ -124,9 +124,7 @@ describe("Get all Users /api/v1/user", () => {
       .set("authorization", token)
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body).to.be.a("object");
-        expect(res.body).to.have.property("users");
-        expect(res.body.users).to.be.a("array");
+        expect(res.body).to.be.a("array");
       });
 
     done();

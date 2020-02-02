@@ -13,3 +13,5 @@ export const CLOSE_TICKET = "CLOSE_TICKET";
 export const GET_TICKET = "GET_TICKET";
 export const DELETE_USER = "DELETE_USER";
 export const GET_PROFILE = "GET_PROFILE";
+export const GET_TICKET_WITH_COMMENT = "GET_TICKET_WITH_COMMENT";
+export const ADD_COMMENT = "ADD_COMMENT";

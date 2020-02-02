@@ -19,7 +19,7 @@ class Header extends Component {
         <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
           <div className="navbar-brand-wrapper d-flex align-items-center justify-content-between">
             <p className="navbar-brand brand-logo">Ticket System</p>
-            <p className="navbar-brand brand-logo-mini">Ticket System</p>
+            <p className="navbar-brand brand-logo-mini">TS</p>
             <button
               className="navbar-toggler navbar-toggler align-self-center"
               type="button"

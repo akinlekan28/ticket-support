@@ -5,13 +5,16 @@ import {
   GET_COMMENTS,
   ADD_TICKET,
   CLOSE_TICKET,
-  GET_TICKET
+  GET_TICKET,
+  GET_TICKET_WITH_COMMENT,
+  ADD_COMMENT
 } from "../actions/types";
 
 const initialState = {
   ticket: {},
   tickets: [],
   comments: [],
+  ticketWithComments: [],
   loading: false
 };
 
@@ -37,6 +40,18 @@ export default function(state = initialState, action) {
         ticket: action.payload,
         tickets: [action.payload, ...state.tickets]
       };
+
+    case GET_TICKET_WITH_COMMENT:
+      return {
+        ...state,
+        ticketWithComments: action.payload
+      };
+
+    case ADD_COMMENT:
+      return {
+        ...state,
+        loading: false
+      }
 
     case GET_TICKET:
       return {

@@ -4,6 +4,7 @@ import {closeTicket} from '../../actions/ticketActions';
 import { Link } from "react-router-dom";
 import Pagination from "../common/Pagination";
 import { toast } from "react-toastify";
+import axios from 'axios';
 
 class TicketTable extends Component {
   constructor() {
@@ -16,6 +17,7 @@ class TicketTable extends Component {
 
     this.paginate = this.paginate.bind(this);
     this.closeTicket = this.closeTicket.bind(this);
+    this.downloadReport = this.downloadReport.bind(this)
   }
 
   paginate(pageNumber) {
@@ -34,6 +36,24 @@ class TicketTable extends Component {
       }).catch(err => console.log(err))
   }
 
+  downloadReport(e){
+    e.preventDefault();
+    
+    axios.get('/api/v1/ticket/report', {
+      responseType: 'blob'
+    })
+    .then(res => {
+      console.log(res)
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'report.pdf');
+      document.body.appendChild(link)
+      link.click()
+    })
+    .catch(err => console.log(err))
+  }
+
   render() {
     const { tickets, role, tableTitle } = this.props;
     const { currentPage, recordPerPage } = this.state;
@@ -46,6 +66,8 @@ class TicketTable extends Component {
         <div className="card">
           <div className="card-body">
             <h4 className="card-title">All {tableTitle} Ticket</h4>
+            {role === 'admin' ? <button type="button" className="btn btn-success text-white" onClick={this.downloadReport}>Download Report</button> : null}
+            
             <div className="table-responsive">
               <table className="table table-striped">
                 <thead>
@@ -80,7 +102,9 @@ class TicketTable extends Component {
                       </td>
                       <td>
                         <Link to={"/ticket/view/" + ticket.id}>
-                          <i className="fa fa-eye"></i>
+                          <span className="badge badge-secondary text-white">
+                            <i className="fa fa-eye"></i>
+                          </span>
                         </Link>{" "}
                         &nbsp;&nbsp;
                         {role === "admin" && ticket.status === 0 ? (

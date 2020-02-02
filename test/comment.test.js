@@ -66,16 +66,14 @@ describe("Get all comments /api/v1/comment", () => {
       });
   });
 
-  it("Should add comment to a ticket", done => {
+  it("Should get all comments", done => {
     chai
       .request(app)
       .get("/api/v1/comment")
       .set("authorization", token)
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body.status).to.equals(true);
-        expect(res.body).to.have.property("comments");
-        expect(res.body.comments).to.be.a("array");
+        expect(res.body).to.be.an("array");
       });
 
     done();

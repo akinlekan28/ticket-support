@@ -1,4 +1,6 @@
 const Ticket = require("../models").Ticket;
+const Comment = require("../models").Comment;
+const User = require("../models").User;
 const {Op} = require('sequelize');
 const pdfMakePrinter = require("pdfmake/src/printer");
 const validateTicketInput = require('../validation/ticket');
@@ -51,7 +53,7 @@ exports.getTickets = async (req, res) => {
 exports.getActiveTickets = async (req, res) => {
   try {
         const tickets = await Ticket.findAll({where: {status: 0}});
-        return res.json({status: true, count: tickets.length, tickets})
+        return res.json(tickets)
   } catch (error) {
       return res.status(400).json({status: false, message: "An error occured while trying to run a query",error});
   }
@@ -118,6 +120,18 @@ exports.getTicketByTag = async (req, res) => {
     
   } catch (error) {
     return res.status(400).json({status: false, message: "An error occured while trying to run a query", error});
+  }
+}
+
+// @desc      Get support ticket with commments
+// @route     Get /api/v1/ticket/comments/:id
+// @access    Private
+exports.getTicketWithComments = async (req, res) => {
+  try {
+      const ticket = await Ticket.findOne({ where: { id: req.params.id }, include: [{ model: Comment, as: "comments"}]});
+        return res.json({status: true, count: ticket.length, ticket})
+    } catch (error) {
+        return res.status(400).json({status: false, message: "An error occured while trying to run a query",error});
   }
 }
 

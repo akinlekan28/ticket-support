@@ -7,7 +7,7 @@ const User = require('../models').User
 // @access    Private 
 exports.addComment = async (req, res) => {
     const { commentText, ticketId } = req.body;
-    if (commentText == "" || ticketId == "") {
+    if (commentText === '' || ticketId === '') {
       return res.status(403).json({ status: false, message: "Comment and Ticket Id cannot be empty" });
     }
 
@@ -65,4 +65,3 @@ exports.getTicketComments = async (req, res) => {
         return res.status(400).json({status: false, message: "An error occured while trying to run a query",error});
     }
 }
-
