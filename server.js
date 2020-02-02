@@ -25,7 +25,7 @@ app.use(hpp());
 // Enable CORS
 app.use(cors());
 // Dev logging middleware
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 //Passport Middleware
 app.use(passport.initialize());
 //Passport config
