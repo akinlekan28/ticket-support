@@ -17,6 +17,9 @@ import AllTickets from "./components/Tickets/AllTickets";
 import ActiveTickets from "./components/Tickets/ActiveTickets";
 import ClosedTickets from "./components/Tickets/ClosedTickets";
 import SearchTicket from "./components/Tickets/SearchTicket";
+import AllUsers from "./components/Users/AllUsers";
+import DeletedUsers from "./components/Users/DeletedUsers";
+import Profile from "./components/Users/Profile";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -51,35 +54,28 @@ class App extends Component {
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
             <Switch>
-              <PrivateRoute
-                exact
-                path="/ticket/create"
-                component={CreateTicket}
-              />
+              <PrivateRoute exact path="/ticket/create" component={CreateTicket} />
             </Switch>
             <Switch>
               <PrivateRoute exact path="/ticket/all" component={AllTickets} />
             </Switch>
             <Switch>
-              <PrivateRoute
-                exact
-                path="/ticket/closed"
-                component={ClosedTickets}
-              />
+              <PrivateRoute exact path="/ticket/closed" component={ClosedTickets} />
             </Switch>
             <Switch>
-              <PrivateRoute
-                exact
-                path="/ticket/active"
-                component={ActiveTickets}
-              />
+              <PrivateRoute exact path="/ticket/active" component={ActiveTickets} />
             </Switch>
             <Switch>
-              <PrivateRoute
-                exact
-                path="/ticket/search"
-                component={SearchTicket}
-              />
+              <PrivateRoute exact path="/ticket/search" component={SearchTicket} />
+            </Switch>
+             <Switch>
+              <PrivateRoute exact path="/users/all" component={AllUsers} />
+            </Switch>
+             <Switch>
+              <PrivateRoute exact path="/users/deleted" component={DeletedUsers} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/user/view/:id" component={Profile} />
             </Switch>
           </div>
         </Router>

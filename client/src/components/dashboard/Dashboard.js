@@ -84,7 +84,7 @@ export class Dashboard extends Component {
         <CountCard cardTitle="Deleted Users" count={deletedUsers.length} />
       );
       adminUsersContainer = (
-        <CountCard cardTitle="Amin Users" count={adminUsers.length} />
+        <CountCard cardTitle="Admin Users" count={adminUsers.length} />
       );
       activeTicketContainerAdmin = (
         <CountCard cardTitle="Active Tickets" count={tickets.length} />

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import menu from "./icons/menu.svg";
 import profile from "./icons/profile.png";
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
   onHandleClick(e) {
@@ -59,10 +60,25 @@ class Header extends Component {
                   <div className="profile-dropdown-body">
                     <ul className="list-profile-items">
                       <li className="profile-item">
+                        <Link to={`/user/view/`+user.id}>
+                          <span className="profile-dropdown-link">
+                            <div className="d-flex align-items-center">
+                              <i className="mdi mdi-account text-dark"></i>
+                              <div>
+                                <h5 className="item-title mt-0">Profile</h5>
+                              </div>
+                            </div>
+                          </span>
+                        </Link>
+                      </li>
+                      <li
+                        className="profile-item"
+                        onClick={this.onHandleClick.bind(this)}
+                      >
                         <span className="profile-dropdown-link">
                           <div className="d-flex align-items-center">
                             <i className="mdi mdi-power text-dark"></i>
-                            <div onClick={this.onHandleClick.bind(this)}>
+                            <div>
                               <h5 className="item-title mt-0">Logout</h5>
                             </div>
                           </div>

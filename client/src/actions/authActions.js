@@ -4,7 +4,9 @@ import {
   CLEAR_ERRORS,
   GET_SUCCESS,
   SET_CURRENT_USER,
-  GET_USERS
+  GET_USERS,
+  DELETE_USER,
+  GET_PROFILE
 } from "./types";
 import jwt_decode from "jwt-decode";
 import setAuthToken from '../utils/setAuthToken';
@@ -75,6 +77,38 @@ export const getUsers = () => async dispatch => {
       const users = await axios.get("/api/v1/user");
       dispatch({
         type: GET_USERS,
+        payload: users.data
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data
+      });
+    }
+}
+
+//delete users
+export const softDeleteUser = userData => async dispatch => {
+    try {
+      const users = await axios.put(`/api/v1/user/delete/${userData.id}`, userData);
+      dispatch(getUsers())
+      return dispatch({
+        type: DELETE_USER,
+        payload: users.data
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data
+      });
+    }
+}
+//get user profile
+export const getprofile = userId => async dispatch => {
+    try {
+      const users = await axios.get(`/api/v1/user/me/${userId}`);
+      return dispatch({
+        type: GET_PROFILE,
         payload: users.data
       });
     } catch (error) {

@@ -1,9 +1,10 @@
 import {
   SET_CURRENT_USER,
-  GET_SUCCESS,
   SET_LOADING,
   REMOVE_LOADING,
-  GET_USERS
+  GET_USERS,
+  DELETE_USER,
+  GET_PROFILE
 } from "../actions/types";
 import isEmpty from "../utils/is-empty";
 
@@ -11,7 +12,8 @@ const initialState = {
   isAuthenticated: false,
   loading: false,
   user: {},
-  users: []
+  users: [],
+  profile: {}
 };
 
 export default function(state = initialState, action) {
@@ -29,8 +31,16 @@ export default function(state = initialState, action) {
         users: action.payload
       };
 
-    case GET_SUCCESS:
-      return action.payload;
+    case GET_PROFILE:
+      return {
+        ...state,
+        profile: action.payload
+      };
+
+    case DELETE_USER:
+      return {
+        ...state
+      };
 
     case SET_LOADING:
       return { loading: true };

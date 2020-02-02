@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {closeTicket} from '../../actions/ticketActions';
+import { softDeleteUser } from "../../actions/authActions";
 import { Link } from "react-router-dom";
 import Pagination from "../common/Pagination";
 import { toast } from "react-toastify";
 
-class TicketTable extends Component {
+class UsersTable extends Component {
   constructor() {
     super();
 
@@ -15,7 +15,7 @@ class TicketTable extends Component {
     };
 
     this.paginate = this.paginate.bind(this);
-    this.closeTicket = this.closeTicket.bind(this);
+    this.deleteUserDetails = this.deleteUserDetails.bind(this);
   }
 
   paginate(pageNumber) {
@@ -23,88 +23,90 @@ class TicketTable extends Component {
       currentPage: pageNumber
     });
   }
-  closeTicket(ticketId){
-      const ticketData = {
-          id: ticketId,
-          role: this.props.role
-      }
+  deleteUserDetails(userId) {
+    const userData = {
+      id: userId,
+      role: this.props.role
+    };
 
-      this.props.closeTicket(ticketData).then(res => {
-          toast.success(res.payload.message)
-      }).catch(err => console.log(err))
+    this.props
+      .softDeleteUser(userData)
+      .then(res => {
+        toast.success(res.payload.message);
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
-    const { tickets, role, tableTitle } = this.props;
+    const { users, deleted, userId, tableTitle } = this.props;
     const { currentPage, recordPerPage } = this.state;
+
     const indexOfLastRecord = currentPage * recordPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordPerPage;
-    const currentTickets = tickets.slice(indexOfFirstRecord, indexOfLastRecord);
+    const currentUsers = users.slice(indexOfFirstRecord, indexOfLastRecord);
 
     return (
       <div className="col-lg-12 grid-margin stretch-card">
         <div className="card">
           <div className="card-body">
-            <h4 className="card-title">All {tableTitle} Ticket</h4>
+            <h4 className="card-title">All {tableTitle} Users</h4>
             <div className="table-responsive">
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th>Tag</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Date Added</th>
+                    <th>Full Name</th>
+                    <th>Date Registered</th>
+                    <th>Role</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {currentTickets.map(ticket => (
-                    <tr key={ticket.tag}>
-                      <td>{ticket.tag}</td>
-                      <td>{ticket.title}</td>
-                      <td>{ticket.description}</td>
+                  {currentUsers.map(user => (
+                    <tr key={user.id}>
+                      <td>{user.name}</td>
                       <td>
-                        {new Date(ticket.createdAt).toISOString().slice(0, 10)}
+                        {new Date(user.createdAt).toISOString().slice(0, 10)}
                       </td>
+                      <td>{user.role}</td>
                       <td>
-                        {ticket.status === 0 ? (
+                        {user.isDelete === 0 ? (
                           <span className="badge badge-success text-white">
-                            Open
+                            Active
                           </span>
                         ) : (
                           <span className="badge badge-danger text-white">
-                            Closed
+                            Deleted
                           </span>
                         )}
                       </td>
                       <td>
-                        <Link to={"/ticket/view/" + ticket.id}>
+                        <Link to={"/user/view/" + user.id}>
                           <i className="fa fa-eye"></i>
                         </Link>{" "}
                         &nbsp;&nbsp;
-                        {role === "admin" && ticket.status === 0 ? (
+                        {deleted || userId === user.id ? null : (
                           <span
                             className="badge badge-danger text-white"
-                            onClick={() => this.closeTicket(ticket.id)}
+                            onClick={() => this.deleteUserDetails(user.id)}
                           >
-                            Close <i className="fa fa-exclamation-triangle"></i>
+                            <i className="fa fa-trash"></i>
                           </span>
-                        ) : null}
+                        )}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              {tickets.length < recordPerPage ? (
+              {users.length < recordPerPage ? (
                 ""
               ) : (
                 <Pagination
                   recordPerPage={recordPerPage}
-                  totalRecords={tickets}
+                  totalRecords={users}
                   paginate={this.paginate}
                   currentPage={currentPage}
-                  currentLevel={currentTickets}
+                  currentLevel={currentUsers}
                 />
               )}
             </div>
@@ -115,4 +117,4 @@ class TicketTable extends Component {
   }
 }
 
-export default connect(null, { closeTicket })(TicketTable);
+export default connect(null, { softDeleteUser })(UsersTable);
